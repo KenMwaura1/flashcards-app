@@ -116,6 +116,7 @@ User story
 * Python-3.9.7
 * Django web framework
 * PostgreSQL
+* Heroku
 
 
 ## Author
