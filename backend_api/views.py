@@ -79,3 +79,41 @@ class ProfileList(generics.ListCreateAPIView):
     serializer_class = ProfileSerializer
 
 
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+
+    """
+    queryset = Profile.objects.all()
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        print(self.kwargs['id'])
+        obj = queryset.get(pk=self.kwargs['id'])
+        self.check_object_permissions(self.request, obj)
+        return obj
+
+    serializer_class = ProfileSerializer
+
+
+class DeckDetail(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = Deck.objects.all()
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        print(self.kwargs['id'])
+        obj = queryset.get(pk=self.kwargs['id'])
+        self.check_object_permissions(self.request, obj)
+        return obj
+
+    serializer_class = DeckSerializer
+
+
+class UserCards(generics.ListAPIView):
+    """
+
+    """
+    serializer_class = CardSerializer
+
+    def get_queryset(self):
+        return Card.objects.filter(id=self.kwargs['id'])
