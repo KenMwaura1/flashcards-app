@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 
 from .models import Profile, Card, Deck
 from .serializers import ProfileSerializer, CardSerializer, DeckSerializer
@@ -31,3 +31,27 @@ class DeckViewSet(viewsets.ModelViewSet):
     """
     queryset = Deck.objects.all()
     serializer_class = DeckSerializer
+
+
+class CardList(generics.ListCreateAPIView):
+    """
+
+    """
+    queryset = Card.objects.all()
+    serializer_class = CardSerializer
+
+
+class CardDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+
+    """
+    queryset = Card.objects.all()
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        print(self.kwargs['id'])
+        obj = queryset.get(pk=self.kwargs['id'])
+        self.check_object_permissions(self.request, obj)
+        return obj
+
+    serializer_class = CardSerializer
