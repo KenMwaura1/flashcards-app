@@ -110,7 +110,6 @@ User story
    http://localhost:8082/api
     ```
 
-
 ## Technologies used
 
 * Python-3.9.7
