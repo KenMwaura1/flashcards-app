@@ -1,3 +1,4 @@
+from django.db import models
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Card, Deck, Profile
@@ -27,12 +28,14 @@ class UserSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = User
-        fields = ('username', 'password', 'password-2','email')
+        fields = ('username', 'password', 'email')
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     """
     serializer for Profile model
     """
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     class Meta:
         model = Profile
-        fields = ('name', 'date_joined', 'cards')
+        fields = ('name', 'user','date_joined', 'cards')

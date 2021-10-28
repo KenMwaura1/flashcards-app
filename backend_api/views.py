@@ -1,8 +1,9 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework import viewsets, generics
 
 from .models import Profile, Card, Deck
-from .serializers import ProfileSerializer, CardSerializer, DeckSerializer
+from .serializers import ProfileSerializer, CardSerializer, DeckSerializer, UserSerializer
 
 
 def index(request):
@@ -55,3 +56,26 @@ class CardDetail(generics.RetrieveUpdateDestroyAPIView):
         return obj
 
     serializer_class = CardSerializer
+
+class DeckList(generics.ListCreateAPIView):
+    """
+
+    """
+    queryset = Deck.objects.all()
+    serializer_class = DeckSerializer
+
+class UserList(generics.ListCreateAPIView):
+    """
+
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class ProfileList(generics.ListCreateAPIView):
+    """
+
+    """
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+
